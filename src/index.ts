@@ -1,50 +1,62 @@
 import * as admin from 'firebase-admin';
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import * as moment from 'moment';
+import {ApolloError, ApolloServer, gql} from 'apollo-server';
+import {ApolloServerPluginLandingPageLocalDefault, ApolloServerPluginUsageReportingDisabled,} from "apollo-server-core";
 
 const serviceAccount = require('../service-account.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
-import {ApolloServer, ApolloError, ValidationError, gql} from 'apollo-server';
-import {
-    ApolloServerPluginUsageReportingDisabled,
-    ApolloServerPluginLandingPageLocalDefault,
-} from "apollo-server-core";
+
+interface Status {
+    id: string;
+    description: string;
+}
+
 interface Task {
     id: string;
     name: string;
     description: string;
-    status: number;
+    status: string;
     created_date: string;
     updated_date: string;
 }
 
+
+
 const typeDefs = gql`
+    type Status {
+        id: ID
+        description: String
+    }
+    
     type Task {
         id: ID!
         name: String!
         description: String!
-        status: Int!
+        status: Status!
         created_date: String!
         updated_date: String!
     }
+    
 
     type Query {
         getTasks: [Task]
+        getAvailableStatus: [Status]
     }
 
     type Mutation {
         updateTask(
             id: ID!
-            status: Int!
+            status: String!
         ): Task
 
         createTask(
             name: String!
             description: String!
-            status: Int!
+            status: String!
         ): Task
     }
 `;
@@ -56,19 +68,26 @@ const resolvers = {
                 .firestore()
                 .collection('task')
                 .get();
-            console.log(tasks.docs);
-            return tasks.docs.map(task => {
-                console.log(task)
+            return tasks.docs.map( task => {
                 return task.data()
             }) as Task[];
         },
+        async getAvailableStatus() {
+            const availableStatus = await admin
+                .firestore()
+                .collection('status')
+                .get();
+            return availableStatus.docs.map(status => {
+                return status.data()
+            }) as Status[];
+        },
     },
     Mutation: {
-        updateTask: async (_, args: { id: string, status: number }) => {
+        updateTask: async (_, args: { id: string, status: string }) => {
             try {
                 const taskReference = admin.firestore().doc(`task/${args.id}`);
                 await taskReference.update({
-                    status: args.status,
+                    status: admin.firestore().doc(`status/${args.status}`),
                     updated_date: moment().format()
                 });
                 const task = await taskReference.get();
@@ -88,10 +107,11 @@ const resolvers = {
                     id,
                     name:args.name,
                     description:args.description,
-                    status:args.status,
+                    status: admin.firestore().doc(`status/${args.status}`),
                     created_date: moment().format(),
                     updated_date: moment().format()
                 }
+                console.log(data)
                 const taskReference = admin.firestore().collection(`task`).doc(id);
                 await taskReference.set(data);
                 return data;
