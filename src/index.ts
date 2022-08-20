@@ -57,14 +57,20 @@ const resolvers = {
                 .collection('task')
                 .get();
             console.log(tasks.docs);
-            return tasks.docs.map(task => task.data()) as Task[];
+            return tasks.docs.map(task => {
+                console.log(task)
+                return task.data()
+            }) as Task[];
         },
     },
     Mutation: {
         updateTask: async (_, args: { id: string, status: number }) => {
             try {
                 const taskReference = admin.firestore().doc(`task/${args.id}`);
-                await taskReference.update({status: args.status});
+                await taskReference.update({
+                    status: args.status,
+                    updated_date: moment().format()
+                });
                 const task = await taskReference.get();
                 return task.data();
             } catch (error) {
@@ -86,8 +92,8 @@ const resolvers = {
                     created_date: moment().format(),
                     updated_date: moment().format()
                 }
-                const taskReference = admin.firestore().collection(`task/`);
-                await taskReference.add(data);
+                const taskReference = admin.firestore().collection(`task`).doc(id);
+                await taskReference.set(data);
                 return data;
             } catch (error) {
                 throw new ApolloError(error);
