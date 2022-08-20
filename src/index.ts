@@ -1,11 +1,12 @@
 import * as admin from 'firebase-admin';
+import { v4 as uuidv4 } from 'uuid';
+import * as moment from 'moment';
 
 const serviceAccount = require('../service-account.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
-
 import {ApolloServer, ApolloError, ValidationError, gql} from 'apollo-server';
 import {
     ApolloServerPluginUsageReportingDisabled,
@@ -16,6 +17,8 @@ interface Task {
     name: string;
     description: string;
     status: number;
+    created_date: string;
+    updated_date: string;
 }
 
 const typeDefs = gql`
@@ -24,6 +27,8 @@ const typeDefs = gql`
         name: String!
         description: String!
         status: Int!
+        created_date: String!
+        updated_date: String!
     }
 
     type Query {
@@ -52,11 +57,7 @@ const resolvers = {
                 .collection('task')
                 .get();
             console.log(tasks.docs);
-            return tasks.docs.map(task => {
-                const data = task.payload.doc.data() as Task;
-                data.id = task.payload.doc.id;
-                return data;
-            })
+            return tasks.docs.map(task => task.data()) as Task[];
         },
     },
     Mutation: {
@@ -76,14 +77,18 @@ const resolvers = {
             status: number,
         }) => {
             try {
+                const id = uuidv4()
                 const data = {
+                    id,
                     name:args.name,
                     description:args.description,
                     status:args.status,
+                    created_date: moment().format(),
+                    updated_date: moment().format()
                 }
                 const taskReference = admin.firestore().collection(`task/`);
-                const { id } =  taskReference.add(data);
-                return id;
+                await taskReference.add(data);
+                return data;
             } catch (error) {
                 throw new ApolloError(error);
             }
@@ -101,7 +106,7 @@ const server = new ApolloServer({
     plugins: [
         ApolloServerPluginUsageReportingDisabled(),
         ApolloServerPluginLandingPageLocalDefault({ embed: true }),
-    ],
+    ]
 });
 
 server.listen().then(({url}) => {
