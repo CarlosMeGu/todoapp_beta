@@ -1,23 +1,12 @@
 {
-  "extends": [
-    "airbnb-base"
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
   ],
-  "env": {
-    "node": true,
-    "jest": true
-  },
-  "rules": {
-    "no-restricted-syntax": "off"
-  },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "moduleDirectory": [
-          "node_modules",
-          "src",
-          "/node_modules"
-        ]
-      }
-    }
-  }
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ]
 }
