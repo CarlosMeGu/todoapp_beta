@@ -4,7 +4,8 @@ import {Status} from "../interfaces/status.interface";
 import {Task} from "../interfaces/task.interface";
 
 export const queryResolvers = {
-    getAvailableStatus:async() => {
+    getAvailableStatus:async(_, {} , context) => {
+        const { token, user } = context;
         const availableStatus = await firebase.db
             .collection(constants.COLLECTIONS.STATUS)
             .get();
