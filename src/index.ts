@@ -1,4 +1,6 @@
-import {ApolloServer} from 'apollo-server';
+import 'dotenv/config'
+
+import {ApolloServer} from 'apollo-server-cloud-functions';
 import {resolvers} from "./resolvers";
 import {typeDefs} from "./typesDefinitions";
 import {ApolloServerPluginLandingPageLocalDefault, ApolloServerPluginUsageReportingDisabled} from "apollo-server-core";
@@ -8,7 +10,7 @@ const server = new ApolloServer({
     resolvers,
     introspection: true,
     apollo: {
-        key: "service:ToDoApp-ossf8q:0w9mX1kr5A9ZlglaJUBmsQ",
+        key: process.env.APOLLO_KEY
     },
     plugins: [
         ApolloServerPluginUsageReportingDisabled(),
@@ -16,6 +18,11 @@ const server = new ApolloServer({
     ]
 });
 
-server.listen().then(({url}) => {
-    console.log(`🚀  Server ready at ${url}`);
+exports.handler = server.createHandler({
+    expressGetMiddlewareOptions: {
+        cors: {
+            origin: true,
+            credentials: true,
+        },
+    }
 });

@@ -1,6 +1,6 @@
 # firebase-firestore-graphql
 
-ToDo app [GraphQL](https://graphql.org/) setup with a Firebase Firestore backend. Uses [Apollo Engine/Server 2.0](https://www.apollographql.com/) and deployed to Google App Engine.
+ToDo app [GraphQL](https://graphql.org/) setup with a Firebase Firestore backend. Uses [Apollo Engine](https://www.apollographql.com/) and deployed to Google App Engine.
 
 ## Initial setup
 

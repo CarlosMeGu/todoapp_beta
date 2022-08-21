@@ -2,3 +2,5 @@ node_modules/
 lib/
 .idea/
 service-account.json
+.env
+package-lock.json

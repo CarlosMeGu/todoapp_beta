@@ -2,6 +2,10 @@ ENVIRONMENT_FILE=.env
 PROJECT_NAME=todo-app
 GCP_PROJECT_NAME=todoapp-e0ae5
 
+
+copy-env-file:
+	@test -e .env || cp .env.example .env
+
 clean-all:
 	cd devops; \
 	sh docker-clean.sh;
@@ -15,15 +19,11 @@ lint-fix:
 install:
 	npm i
 
-#build:
-#	gcloud builds submit --tag gcr.io/$(GCP_PROJECT_NAME)/$(PROJECT_NAME)-image .
-#
-#deploy:
-#	gcloud beta run deploy $(PROJECT_NAME) --image gcr.io/$(GCP_PROJECT_NAME)/$(PROJECT_NAME)-image --region us-central1 --platform managed --allow-unauthenticated --quiet --add-cloudsql-instances=$(INSTANCE_CONNECTION)
-#
-#build-deploy: build deploy
+uninstall:
+	rm -rf node_modules && rm package-lock.json
+
 deploy:
-	npm run build && gcloud app deploy
+	npm run build && gcloud functions deploy to-do-app --entry-point handler --runtime nodejs14 --trigger-http
 
 list-projects:
 	gcloud projects list
@@ -34,7 +34,7 @@ login:
 set-project:
 	gcloud config set project ${GCP_PROJECT_NAME}
 
-run:
+run: copy-env-file
 	npm run serve
 
 get-auth-token:
