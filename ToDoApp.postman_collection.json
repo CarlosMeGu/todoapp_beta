@@ -1,0 +1,378 @@
+{
+	"info": {
+		"_postman_id": "565af76e-696e-447e-a4a8-070726a42a17",
+		"name": "ToDoApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19719511"
+	},
+	"item": [
+		{
+			"name": "Get Available Status",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query ExampleQuery {\n  getAvailableStatus {\n    id\n    description\n  }\n}\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{host}}",
+					"host": [
+						"{{host}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Available Status",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query ExampleQuery {\n  getAvailableStatus {\n    id\n    description\n  }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "319"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"13f-aw7YtsIYRwpONzpfwS74FBSENZ4\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Aug 2022 18:31:56 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"getAvailableStatus\": [\n            {\n                \"id\": \"1c1a7cd5-bb16-4d4e-aecb-35f9d9af13ab\",\n                \"description\": \"Archived\"\n            },\n            {\n                \"id\": \"4b1a813f-cfe1-43e1-a6b9-17d542348e8f\",\n                \"description\": \"Completed\"\n            },\n            {\n                \"id\": \"a441d5f6-6198-4251-bf68-ef975d3a1c69\",\n                \"description\": \"To do\"\n            },\n            {\n                \"id\": \"e1627c1d-7801-4d7a-ac68-dffb97750cf6\",\n                \"description\": \"In Progress\"\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Tasks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query ExampleQuery {\n  getTasks {\n    id\n    name\n    description\n    status{\n        id\n    }\n    created_date\n    updated_date\n\n  }\n}\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{host}}",
+					"host": [
+						"{{host}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Tasks",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query ExampleQuery {\n  getTasks {\n    id\n    name\n    description\n    status{\n        id\n    }\n    created_date\n    updated_date\n\n  }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1783"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"6f7-Hozizd+k9ClxsQd+kMaaL5OhKLU\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Aug 2022 18:38:36 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"getTasks\": [\n            {\n                \"id\": \"30a8084e-7275-44ab-97a9-f54e39dd722d\",\n                \"name\": \"quibusdam-rem-nemo\",\n                \"description\": \"Description  We need to copy the virtual HTTP firewall!\",\n                \"status\": {\n                    \"id\": \"a441d5f6-6198-4251-bf68-ef975d3a1c69\"\n                },\n                \"created_date\": \"2022-08-21T21:34:52-05:00\",\n                \"updated_date\": \"2022-08-21T21:34:52-05:00\"\n            },\n            {\n                \"id\": \"64aae706-4e93-4c18-9e56-9c271217f50e\",\n                \"name\": \"ad-eum-cumque\",\n                \"description\": \"Description  You can't back up the card without synthesizing the virtual SMTP hard drive! transmitting the application won't do anything, we need to copy the back-end USB protocol!\",\n                \"status\": {\n                    \"id\": \"a441d5f6-6198-4251-bf68-ef975d3a1c69\"\n                },\n                \"created_date\": \"2022-08-21T21:35:07-05:00\",\n                \"updated_date\": \"2022-08-21T21:35:07-05:00\"\n            },\n            {\n                \"id\": \"65ffe90b-ef59-4b6e-bec8-346b3bb19f38\",\n                \"name\": \"Task created from postman\",\n                \"description\": \"Description  We need to hack the solid state USB sensor!\",\n                \"status\": {\n                    \"id\": \"a441d5f6-6198-4251-bf68-ef975d3a1c69\"\n                },\n                \"created_date\": \"2022-08-21T21:34:06-05:00\",\n                \"updated_date\": \"2022-08-21T21:34:06-05:00\"\n            },\n            {\n                \"id\": \"adcc6b8d-b306-460b-bde4-f64cc2fe003a\",\n                \"name\": \"Task created from postman\",\n                \"description\": \"Description from sv\",\n                \"status\": {\n                    \"id\": \"a441d5f6-6198-4251-bf68-ef975d3a1c69\"\n                },\n                \"created_date\": \"2022-08-21T21:33:33-05:00\",\n                \"updated_date\": \"2022-08-21T21:33:33-05:00\"\n            },\n            {\n                \"id\": \"fb37670d-6906-406c-9e52-6148454898ba\",\n                \"name\": \"Task created from postman\",\n                \"description\": \"Description from postman\",\n                \"status\": {\n                    \"id\": \"4b1a813f-cfe1-43e1-a6b9-17d542348e8f\"\n                },\n                \"created_date\": \"2022-08-21T21:25:05-05:00\",\n                \"updated_date\": \"2022-08-21T21:27:58-05:00\"\n            },\n            {\n                \"id\": \"fe448673-e207-4d65-82d9-1098c60a0d25\",\n                \"name\": \"Created from apollo\",\n                \"description\": \"Some description\",\n                \"status\": {\n                    \"id\": \"a441d5f6-6198-4251-bf68-ef975d3a1c69\"\n                },\n                \"created_date\": \"2022-08-20T16:51:42-05:00\",\n                \"updated_date\": \"2022-08-20T16:51:42-05:00\"\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Create task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation Mutation($name: String!, $description: String!, $status: String!) {\n  createTask(name: $name, description: $description, status: $status) {\n    id\n    name\n    description\n    created_date\n    updated_date\n  }\n}\n",
+						"variables": "{\n  \"name\": \"{{$randomAlphaNumeric}} - {{$randomLoremWord}}\",\n  \"description\": \"{{$randomPhrase}} {{$randomPhrase}} {{$randomPhrase}}\",\n  \"status\": \"{{status_todo_id}}\"\n}"
+					}
+				},
+				"url": {
+					"raw": "{{host}}",
+					"host": [
+						"{{host}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Task",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation Mutation($name: String!, $description: String!, $status: String!) {\n  createTask(name: $name, description: $description, status: $status) {\n    id\n    name\n    description\n    created_date\n    updated_date\n  }\n}\n",
+								"variables": "{\n  \"name\": \"{{$randomAlphaNumeric}} - {{$randomLoremWord}}\",\n  \"description\": \"{{$randomPhrase}} {{$randomPhrase}} {{$randomPhrase}}\",\n  \"status\": \"{{status_todo_id}}\"\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "448"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1c0-OS9S3JL8ry5NGhJCeZi+0IRvz+0\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Aug 2022 20:07:22 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"createTask\": {\n            \"id\": \"02a8bb7e-5b1d-43c4-a4bc-b77227ab3f38\",\n            \"name\": \"2 - nobis\",\n            \"description\": \"You can't navigate the monitor without connecting the redundant HTTP bus! The JSON alarm is down, back up the multi-byte port so we can generate the HTTP pixel! If we reboot the hard drive, we can get to the HTTP panel through the redundant HTTP microchip!\",\n            \"created_date\": \"2022-08-22T20:07:22+00:00\",\n            \"updated_date\": \"2022-08-22T20:07:22+00:00\"\n        }\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Update task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation Mutation($updateTaskId: ID!, $status: String!) {\n  updateTask(id: $updateTaskId, status: $status) {\n    id\n    name\n    status{\n        id\n    }\n    description\n    created_date\n    updated_date\n  }\n}\n",
+						"variables": "{\n  \"updateTaskId\": \"2d0a8fe9-ca93-42b4-992a-8690c6bb02a3\",\n  \"status\": \"{{status_completed_id}}\"\n}"
+					}
+				},
+				"url": {
+					"raw": "{{host}}",
+					"host": [
+						"{{host}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update task",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation Mutation($updateTaskId: ID!, $status: String!) {\n  updateTask(id: $updateTaskId, status: $status) {\n    id\n    name\n    status{\n        id\n    }\n    description\n    created_date\n    updated_date\n  }\n}\n",
+								"variables": "{\n  \"updateTaskId\": \"02a8bb7e-5b1d-43c4-a4bc-b77227ab3f38\",\n  \"status\": \"{{status_completed_id}}\"\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "503"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1f7-A2RBhj9sN9QOHs1n/A/2t5XLomQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Aug 2022 20:10:14 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"updateTask\": {\n            \"id\": \"02a8bb7e-5b1d-43c4-a4bc-b77227ab3f38\",\n            \"name\": \"2 - nobis\",\n            \"status\": {\n                \"id\": \"4b1a813f-cfe1-43e1-a6b9-17d542348e8f\"\n            },\n            \"description\": \"You can't navigate the monitor without connecting the redundant HTTP bus! The JSON alarm is down, back up the multi-byte port so we can generate the HTTP pixel! If we reboot the hard drive, we can get to the HTTP panel through the redundant HTTP microchip!\",\n            \"created_date\": \"2022-08-22T20:07:22+00:00\",\n            \"updated_date\": \"2022-08-22T20:10:14+00:00\"\n        }\n    }\n}"
+				}
+			]
+		}
+	]
+}

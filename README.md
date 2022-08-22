@@ -3,6 +3,7 @@
 ToDo app [GraphQL](https://graphql.org/) setup with a Firebase Firestore backend and [Auth0](https://auth0.com/) for authentication. Uses [Apollo Engine](https://www.apollographql.com/) and deployed to Cloud functions.
 #### You can play with this [Apollo demo](https://us-central1-todoapp-e0ae5.cloudfunctions.net/to-do-app)
 #### I Built this [small front](https://todoapp-e0ae5.web.app/) to authenticate users with auth0 and find the token
+#### Also added [postman documentation](https://documenter.getpostman.com/view/19719511/VUqpvJkR) for easy testing
 ## Initial setup
 
 Personally, I use Makefile for the tab completion, bash scripting and the power of making user friendly and readable commands
