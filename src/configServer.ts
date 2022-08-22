@@ -1,19 +1,21 @@
 import {typeDefs} from "./typesDefinitions";
 import {resolvers} from "./resolvers";
-import {ApolloServerPluginLandingPageLocalDefault, ApolloServerPluginUsageReportingDisabled} from "apollo-server-core";
+import {
+    ApolloServerPluginLandingPageLocalDefault,
+    ApolloServerPluginUsageReporting,
+} from "apollo-server-core";
 import {isTokenValid} from "./utils/validations/token";
+import {loggingPlugin} from "./utils/apolloLogging/logging";
+import {reportingConfig} from "./utils/apolloLogging/reporting";
 
 export const config = {
     typeDefs,
     resolvers,
     introspection: true,
+    csrfPrevention: true,
     apollo: {
         key: process.env.APOLLO_KEY
     },
-    plugins: [
-        ApolloServerPluginUsageReportingDisabled(),
-        ApolloServerPluginLandingPageLocalDefault({embed: true}),
-    ],
     context: async ({req}) => {
         const {authorization: token} = req.headers;
         const validator = await isTokenValid(token);
@@ -21,5 +23,10 @@ export const config = {
             user: validator,
             token
         };
-    }
+    },
+    plugins:[
+        loggingPlugin,
+        ApolloServerPluginUsageReporting(reportingConfig),
+        ApolloServerPluginLandingPageLocalDefault({ embed: true }),
+    ]
 }
