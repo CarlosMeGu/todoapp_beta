@@ -6,16 +6,16 @@ import {User} from "../../interfaces/user.interface";
 import {v4 as uuidv4} from 'uuid';
 
 
-const validateUserInfo = (userInfo) =>{
-    if (userInfo){
-        if (userInfo.user){
+const validateUserInfo = (userInfo) => {
+    if (userInfo) {
+        if (userInfo.user) {
             if (userInfo.user.email) return userInfo.user.email;
         }
     }
     throw new ApolloError("there is no user info or token is not present");
 }
 
-const getUserPayload = ({user: {email, name}}) =>{
+const getUserPayload = ({user: {email, name}}) => {
     const id = uuidv4()
     return {
         id,
@@ -40,13 +40,13 @@ const createUser = async (userInfo) => {
 }
 
 
-export const getUserFromFirebase = async (userInfo) =>{
+export const getUserFromFirebase = async (userInfo) => {
     const email = validateUserInfo(userInfo);
     const userRef = firebase.db.collection(`${constants.COLLECTIONS.USER}`);
     const user = await userRef.where('email', '==', email).limit(1).get();
     if (!user.empty) {
         let userData = {}
-        user.forEach(doc =>  userData = doc.data());
+        user.forEach(doc => userData = doc.data());
         return userData as User
     }
     return createUser(userInfo);

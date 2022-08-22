@@ -12,12 +12,12 @@ endif
 copy-env-file:
 	@test -e .env || cp .env.example .env
 
-clean-all:
+clean-all-docker:
 	cd devops; \
 	sh docker-clean.sh;
 
 lint:
-	npm run lint
+	npx tsc
 
 lint-fix:
 	npm run lint:fix
@@ -46,5 +46,5 @@ run: copy-env-file
 get-auth-token:
 	gcloud auth print-identity-token
 
-start-up: copy-env-file
+start-docker: copy-env-file
 	$(DOCKER_COMPOSE) up -d && docker ps -a && echo "Yoy should be able to use http://0.0.0.0:$(PORT)"

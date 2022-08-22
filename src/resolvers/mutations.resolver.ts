@@ -42,8 +42,8 @@ export const mutationResolvers = {
         status: number,
     }, context) => {
         try {
-            const { user } = context;
-            const { id:userId }= await getUserFromFirebase(user);
+            const {user} = context;
+            const {id: userId} = await getUserFromFirebase(user);
             const newTask = getNewTaskPayload({...args, userId});
             const taskReference = firebase.db
                 .collection(`${constants.COLLECTIONS.TASK}`)

@@ -7,23 +7,22 @@ const client = jwksClient({
     jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
 });
 
-const  getKey = (header, callback) => {
-    client.getSigningKey(header.kid, function(error, key) {
+const getKey = (header, callback) => {
+    client.getSigningKey(header.kid, function (error, key) {
         const signingKey = key.publicKey || key.rsaPublicKey;
         callback(null, signingKey);
     });
 }
 
 const getUserFromAuth0 = async (token) => {
-    try{
+    try {
         const {data} = await axios.get(`https://${process.env.AUTH0_DOMAIN}/userinfo`, {
             headers: {
                 'Authorization': `${token}`
             }
         })
         return {data}
-    }
-    catch (e) {
+    } catch (e) {
         return {e}
     }
 }
@@ -56,6 +55,6 @@ export const isTokenValid = async (token) => {
         return result;
     }
 
-    return { error: "No token provided" };
+    return {error: "No token provided"};
 }
 

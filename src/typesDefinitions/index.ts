@@ -7,7 +7,7 @@ export const typeDefs = gql`
         id: ID
         description: String
     }
-    
+
     type User {
         id: ID!
         name: String

@@ -24,9 +24,9 @@ export const config = {
             token
         };
     },
-    plugins:[
+    plugins: [
         loggingPlugin,
         ApolloServerPluginUsageReporting(reportingConfig),
-        ApolloServerPluginLandingPageLocalDefault({ embed: true }),
+        ApolloServerPluginLandingPageLocalDefault({embed: true}),
     ]
 }

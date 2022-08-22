@@ -1,11 +1,30 @@
 # firebase-firestore-graphql
 
-ToDo app [GraphQL](https://graphql.org/) setup with a Firebase Firestore backend. Uses [Apollo Engine](https://www.apollographql.com/) and deployed to Google App Engine.
-
+ToDo app [GraphQL](https://graphql.org/) setup with a Firebase Firestore backend and [Auth0](https://auth0.com/) for authentication. Uses [Apollo Engine](https://www.apollographql.com/) and deployed to Cloud functions.
+#### You can play with this [Apollo demo](https://us-central1-todoapp-e0ae5.cloudfunctions.net/to-do-app)
 ## Initial setup
 
+Personally, I use Makefile for the tab completion, bash scripting and the power of making user friendly and readable commands
+
+### Using node 
+#### Installing dependencies
 ```bash
-npm install
+make install
+```
+#### Running the app
+```bash
+make run
+```
+
+### Using docker
+This command will do everything for you:
+* Creating the container
+* Installing dependencies
+* Start the application
+* Expose the application to localhost port
+
+```bash
+make start-docker
 ```
 
 ## Firebase setup
@@ -13,62 +32,57 @@ npm install
 Download Firebase service account as `service-account.json` and put in root of this directory.
 In your firestore database setup two collections, one of tweets and one of users. The userId in tweets should point to a user Id that the tweet came from.
 
+*Just for a few days, I'll be publishing the service-account.json. Soon will be deleted :) 
 ```typescript
-interface User {
-  id: string;
-  name: string;
-  screenName: string;
-  statusesCount: number;
+interface Status {
+    id: string;
+    description: string;
 }
 
-interface Tweet {
-  id: string;
-  name: string;
-  screenName: string;
-  statusesCount: number;
-  userId: string;
+interface Task {
+    id: string;
+    name: string;
+    description: string;
+    status: string;
+    created_date: string;
+    updated_date: string;
+}
+
+export interface User {
+    id: string;
+    name: string;
+    email: string;
+    created_date: string;
+    updated_date: string;
 }
 ```
 
+
+
+If you navigate to the URL you should be able to see a GraphQL playground where you can query your API, congrats!
+
+## Apollo Operations
+
+All the request are logged through Apollo, you can use this information by changing `APOLLO_KEY` and `APOLLO_GRAPH_REF`. 
+![img.png](img.png)
+
+
+## Troubleshooting
+
+### Had a problem with the dependencies using node?
 ```bash
-npm run serve
+make uninstall
+make install
 ```
 
-If you navigate to the URL you shoud be able to see a GraphQL playground where you can query your API, congrats!
-
-## Apollo Engine
-
-[Apollo Engine](https://www.apollographql.com/engine) gives use awesome features such as caching, tracing, and error logging. First get an [Apollo Engine API key](https://engine.apollographql.com/) then change your Apollo server config to turn on engine
-
-```typescript
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  engine: {
-    apiKey: "<APOLLO ENGINE API KEY HERE>"
-  },
-  introspection: true
-});
-```
-
-Now when you npm serve and run some queries you should see some data populate the Apollo Engine dashboard with things like how fast your queries resolved. Cool!
-
-## App Engine
-
-Finally we can deploy to App engine so the world can access our GraphQL endpoint. In the root project folder create a file app.yaml. Inside is just one line
-
-```yaml
-runtime: nodejs8
-```
-
-Also add the .gcloudignore file from this repo to your folder. Setup the gcloud SDK then point it to your Firebase project.
-
+### Had a problem with docker?
+This is a dangerous command, it will delete all the images and containers, but it is always helpful 
 ```bash
-gcloud config set project <projectID>
-npm run build
-gcloud app deploy
+make clean-all-docker
 ```
 
-You should get a deployed URL, you can then query that using an GraphQL tool. I personally use [Insomnia’s GraphQL mode](https://support.insomnia.rest/article/61-graphql).
-
-Congratulations, you've setup a GraphQL server!
+### Had a problem with the authentication?
+There is a rate limit with Auth0 and Apollo sends a ton of request for introspection, the fix is changing the value in src/configServer.ts
+```bash
+introspection: false
+```
