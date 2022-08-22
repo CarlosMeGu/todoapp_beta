@@ -1,7 +1,7 @@
 import {ApolloError} from "apollo-server";
 import * as moment from "moment";
 import {firebase} from "../../providers/firebase";
-import {constants} from "../../constants";
+import {constants} from "../constants";
 import {User} from "../../interfaces/user.interface";
 import {v4 as uuidv4} from 'uuid';
 

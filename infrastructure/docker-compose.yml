@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  todoapp:
+    image: todoapp
+    container_name: todoapp
+    ports:
+      - "4000:4000"
+    build:
+      context: ..
+      dockerfile: ./infrastructure/Dockerfile
+    env_file:
+      - ../.env
+    volumes:
+      - ../src:/usr/src/app/src
+    tty: true

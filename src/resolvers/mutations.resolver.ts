@@ -1,5 +1,5 @@
 import {firebase} from "../providers/firebase";
-import {constants} from "../constants";
+import {constants} from "../utils/constants";
 import {ApolloError} from "apollo-server";
 import * as moment from "moment/moment";
 import {v4 as uuidv4} from 'uuid';

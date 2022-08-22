@@ -1,5 +1,5 @@
 import {firebase} from "../providers/firebase";
-import {constants} from "../constants";
+import {constants} from "../utils/constants";
 import {Status} from "../interfaces/status.interface";
 import {Task} from "../interfaces/task.interface";
 import {getUserFromFirebase} from "../utils/validations/user";

@@ -1,7 +1,13 @@
 ENVIRONMENT_FILE=.env
-PROJECT_NAME=todo-app
+PROJECT_NAME=todoapp
 GCP_PROJECT_NAME=todoapp-e0ae5
+ENVIRONMENT_FILE=.env
+DOCKER_COMPOSE=docker-compose -f ./infrastructure/docker-compose.yml --project-name $(PROJECT_NAME) --env-file $(ENVIRONMENT_FILE)
+DOCKER_SHELL=sh
 
+ifneq ("$(wildcard ${ENVIRONMENT_FILE})","")
+	-include ${ENVIRONMENT_FILE}
+endif
 
 copy-env-file:
 	@test -e .env || cp .env.example .env
@@ -39,3 +45,6 @@ run: copy-env-file
 
 get-auth-token:
 	gcloud auth print-identity-token
+
+start-up: copy-env-file
+	$(DOCKER_COMPOSE) up -d && docker ps -a && echo "Yoy should be able to use http://0.0.0.0:$(PORT)"
