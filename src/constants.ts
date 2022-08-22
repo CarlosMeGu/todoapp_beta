@@ -1,6 +1,7 @@
 const COLLECTIONS = {
     STATUS: 'status',
-    TASKS: 'task'
+    TASK: 'task',
+    USER: 'user'
 }
 
 export const constants = {

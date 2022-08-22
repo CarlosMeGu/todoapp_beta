@@ -7,16 +7,24 @@ export const typeDefs = gql`
         id: ID
         description: String
     }
+    
+    type User {
+        id: ID!
+        name: String!
+        email: String!
+        created_date: String!
+        updated_date: String!
+    }
 
     type Task {
         id: ID!
         name: String!
         description: String!
         status: Status!
+        user: User!
         created_date: String!
         updated_date: String!
     }
-
 
     type Query {
         getTasks: [Task]

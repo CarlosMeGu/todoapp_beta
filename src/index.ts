@@ -4,7 +4,7 @@ import {ApolloServer} from 'apollo-server-cloud-functions';
 import {resolvers} from "./resolvers";
 import {typeDefs} from "./typesDefinitions";
 import {ApolloServerPluginLandingPageLocalDefault, ApolloServerPluginUsageReportingDisabled} from "apollo-server-core";
-import {isTokenValid} from "./validate";
+import {isTokenValid} from "./utils/validations/token";
 
 
 const server = new ApolloServer({

@@ -3,7 +3,7 @@ import {constants} from "../constants";
 import {ApolloError} from "apollo-server";
 import * as moment from "moment/moment";
 import {v4 as uuidv4} from 'uuid';
-import {isTokenValid} from "../validate";
+import {isTokenValid} from "../utils/validations/token";
 
 const getNewTaskStatusPayload = ({status}) => {
     return {
@@ -29,7 +29,7 @@ export const mutationResolvers = {
         try {
             const { token } = await context();
             const error = await isTokenValid(token);
-            const taskReference = firebase.db.doc(`${constants.COLLECTIONS.TASKS}/${args.id}`);
+            const taskReference = firebase.db.doc(`${constants.COLLECTIONS.TASK}/${args.id}`);
             await taskReference.update(getNewTaskStatusPayload(args));
             const task = await taskReference.get();
             return task.data();
@@ -45,7 +45,7 @@ export const mutationResolvers = {
         try {
             const newTask = getNewTaskPayload(args);
             const taskReference = firebase.db
-                .collection(`${constants.COLLECTIONS.TASKS}`)
+                .collection(`${constants.COLLECTIONS.TASK}`)
                 .doc(newTask.id);
             await taskReference.set(newTask);
             return newTask;
