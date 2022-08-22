@@ -6,7 +6,7 @@ import {User} from "../../interfaces/user.interface";
 import {v4 as uuidv4} from 'uuid';
 
 
-const validateUserInfo = (userInfo) => {
+export const validateUserInfo = (userInfo) => {
     if (userInfo) {
         if (userInfo.user) {
             if (userInfo.user.email) return userInfo.user.email;

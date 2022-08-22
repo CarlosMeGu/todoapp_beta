@@ -17,6 +17,7 @@ export const config = {
         key: process.env.APOLLO_KEY
     },
     context: async ({req}) => {
+        if(!req) return {}
         const {authorization: token} = req.headers;
         const validator = await isTokenValid(token);
         return {
