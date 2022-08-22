@@ -10,10 +10,10 @@ export const typeDefs = gql`
     
     type User {
         id: ID!
-        name: String!
-        email: String!
-        created_date: String!
-        updated_date: String!
+        name: String
+        email: String
+        created_date: String
+        updated_date: String
     }
 
     type Task {

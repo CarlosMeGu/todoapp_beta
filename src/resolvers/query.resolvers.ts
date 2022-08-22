@@ -15,7 +15,7 @@ export const queryResolvers = {
         }) as Status[];
     },
     getTasks:async(_, {} , context) => {
-        const {  user } = context;
+        const { user } = context;
         const { id:userId }= await getUserFromFirebase(user);
         const userRef = firebase.db.collection(constants.COLLECTIONS.USER).doc(userId);
         const tasks = await firebase.db
