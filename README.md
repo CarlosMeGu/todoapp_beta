@@ -1,4 +1,4 @@
-# firebase-firestore-graphql
+# ToDo app
 
 ToDo app [GraphQL](https://graphql.org/) setup with a Firebase Firestore backend and [Auth0](https://auth0.com/) for authentication. Uses [Apollo Engine](https://www.apollographql.com/) and deployed to Cloud functions.
 #### You can play with this [Apollo demo](https://us-central1-todoapp-e0ae5.cloudfunctions.net/to-do-app)
@@ -32,7 +32,6 @@ make start-docker
 ## Firebase setup
 
 Download Firebase service account as `service-account.json` and put in root of this directory.
-In your firestore database setup two collections, one of tweets and one of users. The userId in tweets should point to a user Id that the tweet came from.
 
 *Just for a few days, I'll be publishing the service-account.json. Soon will be deleted :) 
 ```typescript
